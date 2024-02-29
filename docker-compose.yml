@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_pet_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: pet_app
+    volumes:
+      - ./pet_db.sql:/docker-entrypoint-initdb.d/pet_db.sql
+    ports:
+      - 3306:3306
+      - 33060:33060
+    networks:
+      - pet_app_net
+
+networks:
+  pet_app_net:
+    driver: bridge
