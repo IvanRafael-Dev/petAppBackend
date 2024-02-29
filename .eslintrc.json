@@ -1,0 +1,13 @@
+{
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "extends": "standard-with-typescript",
+      "rules": {
+        "semi": ["error", "always"],
+        "@typescript-eslint/semi": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off"
+      }
+    }
+  ]
+}
