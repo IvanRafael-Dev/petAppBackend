@@ -12,6 +12,44 @@ app.get('/', (req, res) => {
   res.send('Hello Pets!');
 });
 
+app.post('/address', async (req, res) => {
+  const { street, number, state, city, zipCode, profileId } = req.body;
+
+  try {
+    const address = await prisma.address.create({
+      data: {
+        street,
+        city,
+        zipCode,
+        number,
+        state,
+        profileId
+      },
+      select: {
+        id: true,
+        street: true,
+        city: true,
+        zipCode: true,
+        number: true,
+        state: true,
+        profile: {
+          select: {
+            id: true,
+            bio: true,
+            phone: true
+          }
+        }
+      }
+    });
+
+    return res.status(201).json(address);
+  } catch (error) {
+    return res.status(500).json({ error: (error as Error).message });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany({
     select: {
@@ -20,13 +58,23 @@ app.get('/users', async (req, res) => {
       email: true,
       createdAt: true,
       updatedAt: true,
-      Profile: {
+      profile: {
         select: {
           id: true,
           bio: true,
           phone: true,
           createdAt: true,
-          updatedAt: true
+          updatedAt: true,
+          address: {
+            select: {
+              id: true,
+              street: true,
+              city: true,
+              zipCode: true,
+              number: true,
+              state: true
+            }
+          }
         }
       }
     }
