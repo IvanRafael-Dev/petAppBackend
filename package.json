@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "tsnd src/server.ts",
     "lint": "eslint --ext .ts --fix",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "db:seed": "ts-node ./src/prisma/seed.ts",
+    "db:push": "npx prisma db push",
+    "db:drop": "ts-node ./src/prisma/drop.ts",
+    "db:reset": "npm run db:drop && npm run db:push && npm run db:seed"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +34,7 @@
     "prisma": "^5.10.2"
   },
   "prisma": {
-    "schema": "./src/prisma/schema.prisma"
+    "schema": "./src/prisma/schema.prisma",
+    "seed": "ts-node ./src/prisma/seed.ts"
   }
 }
