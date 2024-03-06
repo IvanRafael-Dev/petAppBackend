@@ -23,7 +23,8 @@ app.post('/address', async (req, res) => {
         zipCode,
         number,
         state,
-        profileId
+        profileId,
+        profile: { connect: { id: profileId } }
       },
       select: {
         id: true,
@@ -31,14 +32,7 @@ app.post('/address', async (req, res) => {
         city: true,
         zipCode: true,
         number: true,
-        state: true,
-        profile: {
-          select: {
-            id: true,
-            bio: true,
-            phone: true
-          }
-        }
+        state: true
       }
     });
 
@@ -117,7 +111,13 @@ app.post('/users', async (req, res) => {
       data: {
         name,
         email,
-        password
+        password,
+        profile: {
+          create: {
+            bio: 'any_bio',
+            phone: 'any_phone'
+          }
+        }
       },
       select: {
         id: true,
