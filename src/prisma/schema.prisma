@@ -42,11 +42,60 @@ model Address {
   id        Int     @id @default(autoincrement())
   street    String
   number    String
-  state     String
-  city      String
+  stateId   Int
+  cityId    Int
   zipCode   String
   profileId Int
   profile   Profile @relation(fields: [profileId], references: [id])
+  state     State   @relation(fields: [stateId], references: [id])
+  city      City    @relation(fields: [cityId], references: [id])
 
   @@map("addresses")
+}
+
+model City {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  address   Address[]
+  cityState CityState[]
+
+  @@map("cities")
+}
+
+model State {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  code      String      @unique
+  countryId Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  address   Address[]
+  cityState CityState[]
+  country   Country     @relation(fields: [countryId], references: [id])
+
+  @@map("states")
+}
+
+model CityState {
+  cityId    Int
+  stateId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  city      City     @relation(fields: [cityId], references: [id])
+  state     State    @relation(fields: [stateId], references: [id])
+
+  @@id([cityId, stateId])
+  @@map("city_states")
+}
+
+model Country {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  state     State[]
+
+  @@map("countries")
 }
