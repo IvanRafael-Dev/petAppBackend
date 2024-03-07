@@ -1,15 +1,18 @@
 import { type Validation } from '../../../presentation/validators/interfaces/Validation';
 import { SignUpController } from '../../../presentation/controllers/SignUpController';
 import { type HttpRequest } from '../../../presentation/controllers/interfaces/Http';
+import { MissingParamError } from '../../../presentation/errors/missingParamError';
 
 type FakeHttpRequestFields = 'username' | 'email' | 'password' | 'passwordConfirmation';
 
-const makeHttpRequestBody = (missingField?: FakeHttpRequestFields): HttpRequest => {
+type FakeHttpRequestBody = Record<FakeHttpRequestFields, string>;
+
+export const makeHttpRequestBody = (missingField?: FakeHttpRequestFields, update?: Partial<FakeHttpRequestBody>): HttpRequest => {
   const body = {
-    username: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    passwordConfirmation: 'any_password'
+    username: 'any_name' || update?.username,
+    email: 'any_email@mail.com' || update?.email,
+    password: 'any_password' || update?.password,
+    passwordConfirmation: 'any_password' || update?.passwordConfirmation
   };
 
   if (!missingField) {
@@ -55,7 +58,7 @@ describe('#SignUpController', () => {
     const { sut, validationStub } = makeSut();
 
     jest.spyOn(validationStub, 'validate')
-      .mockReturnValueOnce(new Error('Missing param: username'));
+      .mockReturnValueOnce(new MissingParamError('username'));
 
     const httpRequest = makeHttpRequestBody('username');
     const httpResponse = await sut.handle(httpRequest);
@@ -68,7 +71,7 @@ describe('#SignUpController', () => {
     const { sut, validationStub } = makeSut();
 
     jest.spyOn(validationStub, 'validate')
-      .mockReturnValueOnce(new Error('Missing param: email'));
+      .mockReturnValueOnce(new MissingParamError('email'));
     const httpRequest = makeHttpRequestBody('email');
 
     const httpResponse = await sut.handle(httpRequest);
@@ -80,7 +83,7 @@ describe('#SignUpController', () => {
     const { sut, validationStub } = makeSut();
 
     jest.spyOn(validationStub, 'validate')
-      .mockReturnValueOnce(new Error('Missing param: password'));
+      .mockReturnValueOnce(new MissingParamError('password'));
 
     const httpRequest = makeHttpRequestBody('password');
 
@@ -89,16 +92,28 @@ describe('#SignUpController', () => {
     expect(httpResponse.body).toEqual({ error: 'Missing param: password' });
   });
 
-  it('should return 400 if no password confirmation is provided', async () => {
+  it('should return 400 if no passwordConfirmation is provided', async () => {
     const { sut, validationStub } = makeSut();
 
     jest.spyOn(validationStub, 'validate')
-      .mockReturnValueOnce(new Error('Missing param: passwordConfirmation'));
+      .mockReturnValueOnce(new MissingParamError('passwordConfirmation'));
 
     const httpRequest = makeHttpRequestBody('passwordConfirmation');
 
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual({ error: 'Missing param: passwordConfirmation' });
+  });
+
+  it('should return 400 if password confirmation fails', async () => {
+    const { sut, validationStub } = makeSut();
+
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce();
+
+    const httpRequest = makeHttpRequestBody(undefined, { passwordConfirmation: 'invalid_password' });
+    httpRequest.body.passwordConfirmation = 'invalid_password';
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual({ error: 'Password and Password Confirmation must be equal' });
   });
 });

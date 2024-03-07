@@ -10,7 +10,7 @@ describe('#SignUpController', () => {
       .send({});
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: username' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: username' });
   });
 
   it('should return 400 if no email is provided', async () => {
@@ -19,7 +19,7 @@ describe('#SignUpController', () => {
       .send({ username: 'any_username' });
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: email' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: email' });
   });
 
   it('should return 400 if no password is provided', async () => {
@@ -28,7 +28,7 @@ describe('#SignUpController', () => {
       .send({ username: 'any_username', email: 'any_email' });
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: password' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: password' });
   });
 
   it('should return 400 if no passwordConfirmation is provided', async () => {
@@ -37,7 +37,7 @@ describe('#SignUpController', () => {
       .send({ username: 'any_username', email: 'any_email', password: 'any_password' });
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: passwordConfirmation' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: passwordConfirmation' });
   });
 
   it('should return 400 if passwordConfirmation fails', async () => {
@@ -46,6 +46,14 @@ describe('#SignUpController', () => {
       .send({ username: 'any_username', email: 'any_email', password: 'any_password', passwordConfirmation: 'invalid_password' });
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Invalid param: passwordConfirmation' });
+    expect(httpResponse.body).toEqual({ error: 'Password and Password Confirmation must be equal' });
+  });
+
+  it('should return 200 if valid data is provided', async () => {
+    const httpResponse = await request
+      .post('/signup')
+      .send({ username: 'any_username', email: 'any_email', password: 'any_password', passwordConfirmation: 'any_password' });
+
+    expect(httpResponse.status).toBe(201);
   });
 });
