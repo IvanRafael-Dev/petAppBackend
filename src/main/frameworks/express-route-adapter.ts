@@ -15,7 +15,10 @@ export const expressRouteAdapter = (controller: Controller): RequestHandler => {
       return res.status(httpResponse.statusCode).json(httpResponse.body);
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({
+          error: error.message,
+          stack: error.stack
+        });
       }
       return res.status(500).json({ error: 'Internal server error' });
     }
