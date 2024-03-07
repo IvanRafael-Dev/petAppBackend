@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd src/server.ts",
+    "dev": "tsnd src/main/app/server.ts",
     "lint": "eslint --ext .ts --fix",
     "test": "jest --watch",
     "db:seed": "ts-node ./src/prisma/seed.ts",
