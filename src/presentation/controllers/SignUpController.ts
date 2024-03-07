@@ -1,4 +1,4 @@
-import { UnprocessableEntityError } from '../errors/unprocessableEntityError';
+import { PasswordConfirmationMismatchError } from '../errors/PasswordConfirmationMismatchError';
 import { badRequest, created } from '../helpers/http';
 import { type Validation } from '../validators/interfaces/Validation';
 import { type Controller } from './interfaces/Controller';
@@ -19,7 +19,7 @@ export class SignUpController implements Controller {
 
     const { username, email, password, passwordConfirmation } = httpRequest.body;
     if (password !== passwordConfirmation) {
-      return badRequest(new UnprocessableEntityError('Password and Password Confirmation must be equal'));
+      return badRequest(new PasswordConfirmationMismatchError('password and confirmation must be equal'));
     }
 
     return created({});
