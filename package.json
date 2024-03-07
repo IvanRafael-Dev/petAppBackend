@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsnd src/main/app/server.ts",
     "lint": "eslint --ext .ts --fix",
-    "test": "jest --watch",
+    "test": "jest --watch --config=jest.config.js src/test/unit",
     "test:integration": "jest --config=jest.config.js src/test/integration",
     "db:seed": "ts-node ./src/prisma/seed.ts",
     "db:push": "npx prisma db push",

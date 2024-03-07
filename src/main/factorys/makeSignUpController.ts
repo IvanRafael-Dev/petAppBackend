@@ -9,7 +9,7 @@ export const makeValidationComposite = (): ValidationComposite => {
 
 export const makeSignUpController = (): SignUpController => {
   const validationComposite = makeValidationComposite();
-  const requiredFields = new RequiredFieldsValidation(['name', 'email', 'password', 'passwordConfirmation']);
+  const requiredFields = new RequiredFieldsValidation(['username', 'email', 'password', 'passwordConfirmation']);
   validationComposite.add(requiredFields);
   const signUpController = new SignUpController(validationComposite);
   return signUpController;
