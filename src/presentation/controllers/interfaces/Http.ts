@@ -1,7 +1,9 @@
+import { type IncomingHttpHeaders } from 'http2';
+
 export interface HttpRequest {
   body?: any
-  headers?: Record<string, string>
-  params?: string
+  headers?: IncomingHttpHeaders
+  params?: Record<string, string>
 }
 
 export interface HttpResponse {
