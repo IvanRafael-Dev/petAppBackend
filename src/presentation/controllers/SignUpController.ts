@@ -1,4 +1,5 @@
-import { badRequest } from '../helpers/http';
+import { UnprocessableEntityError } from '../errors/unprocessableEntityError';
+import { badRequest, created } from '../helpers/http';
 import { type Validation } from '../validators/interfaces/Validation';
 import { type Controller } from './interfaces/Controller';
 import { type HttpRequest, type HttpResponse } from './interfaces/Http';
@@ -15,5 +16,12 @@ export class SignUpController implements Controller {
     if (error) {
       return badRequest(error);
     }
+
+    const { username, email, password, passwordConfirmation } = httpRequest.body;
+    if (password !== passwordConfirmation) {
+      return badRequest(new UnprocessableEntityError('Password and Password Confirmation must be equal'));
+    }
+
+    return created({});
   }
 }
