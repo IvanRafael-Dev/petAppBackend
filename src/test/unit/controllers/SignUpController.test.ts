@@ -61,7 +61,7 @@ describe('#SignUpController', () => {
     const httpResponse = await sut.handle(httpRequest);
 
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: username' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: username' });
   });
 
   it('should return 400 if no email is provided', async () => {
@@ -73,7 +73,7 @@ describe('#SignUpController', () => {
 
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: email' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: email' });
   });
 
   it('should return 400 if no password is provided', async () => {
@@ -86,7 +86,7 @@ describe('#SignUpController', () => {
 
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: password' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: password' });
   });
 
   it('should return 400 if no password confirmation is provided', async () => {
@@ -99,6 +99,6 @@ describe('#SignUpController', () => {
 
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ message: 'Missing param: passwordConfirmation' });
+    expect(httpResponse.body).toEqual({ error: 'Missing param: passwordConfirmation' });
   });
 });

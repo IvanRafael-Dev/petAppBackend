@@ -39,4 +39,13 @@ describe('#SignUpController', () => {
     expect(httpResponse.status).toBe(400);
     expect(httpResponse.body).toEqual({ message: 'Missing param: passwordConfirmation' });
   });
+
+  it('should return 400 if passwordConfirmation fails', async () => {
+    const httpResponse = await request
+      .post('/signup')
+      .send({ username: 'any_username', email: 'any_email', password: 'any_password', passwordConfirmation: 'invalid_password' });
+
+    expect(httpResponse.status).toBe(400);
+    expect(httpResponse.body).toEqual({ message: 'Invalid param: passwordConfirmation' });
+  });
 });
