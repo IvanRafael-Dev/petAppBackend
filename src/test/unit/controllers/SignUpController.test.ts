@@ -1,6 +1,6 @@
-import { type Validation } from '../validators/interfaces/Validation';
-import { SignUpController } from './SignUpController';
-import { type HttpRequest } from './interfaces/Http';
+import { type Validation } from '../../../presentation/validators/interfaces/Validation';
+import { SignUpController } from '../../../presentation/controllers/SignUpController';
+import { type HttpRequest } from '../../../presentation/controllers/interfaces/Http';
 
 type FakeHttpRequestFields = 'username' | 'email' | 'password' | 'passwordConfirmation';
 
