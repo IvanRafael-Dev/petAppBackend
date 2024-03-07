@@ -46,7 +46,7 @@ describe('#SignUpController', () => {
       .send({ username: 'any_username', email: 'any_email', password: 'any_password', passwordConfirmation: 'invalid_password' });
 
     expect(httpResponse.status).toBe(400);
-    expect(httpResponse.body).toEqual({ error: 'Password and Password Confirmation must be equal' });
+    expect(httpResponse.body).toEqual({ error: 'password and confirmation must be equal' });
   });
 
   it('should return 200 if valid data is provided', async () => {

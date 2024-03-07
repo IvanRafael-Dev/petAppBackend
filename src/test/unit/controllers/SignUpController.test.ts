@@ -1,7 +1,7 @@
 import { type Validation } from '../../../presentation/validators/interfaces/Validation';
 import { SignUpController } from '../../../presentation/controllers/SignUpController';
 import { type HttpRequest } from '../../../presentation/controllers/interfaces/Http';
-import { MissingParamError } from '../../../presentation/errors/missingParamError';
+import { MissingParamError } from '../../../presentation/errors/MissingParamError';
 
 type FakeHttpRequestFields = 'username' | 'email' | 'password' | 'passwordConfirmation';
 
@@ -114,6 +114,6 @@ describe('#SignUpController', () => {
     httpRequest.body.passwordConfirmation = 'invalid_password';
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ error: 'Password and Password Confirmation must be equal' });
+    expect(httpResponse.body).toEqual({ error: 'password and confirmation must be equal' });
   });
 });
