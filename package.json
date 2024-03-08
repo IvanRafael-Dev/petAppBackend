@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "tsnd src/main/app/server.ts",
     "lint": "eslint --ext .ts --fix",
-    "test": "jest --verbose --watch --config=jest.config.js src/test/unit",
-    "test:integration": "jest --config=jest.config.js src/test/integration",
+    "test": "jest --verbose --watch",
+    "test:unit": "npm test -- --config=jest.config.js src/test/unit",
+    "test:integration": "npm test --  --config=jest.config.js src/test/integration",
+    "test:coverage": "jest --coverage",
     "db:seed": "ts-node ./src/prisma/seed.ts",
     "db:push": "npx prisma db push",
     "db:drop": "ts-node ./src/prisma/drop.ts",
