@@ -1,19 +1,47 @@
 version: '3.8'
 
 services:
+  pet_app:
+    build: .
+
+    container_name: pet_app
+    command: "dev"
+        
+    environment:
+      - API_PORT=${API_PORT:-4682}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_PORT=${DB_PORT:-3306}
+      - DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@mysql:${DB_PORT}/pet_app
+    ports:
+      - 4682:4682
+    volumes:
+      - .:/app 
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - pet_app_net
+
   mysql:
     image: mysql:latest
     container_name: mysql_pet_db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: pet_app
-    # volumes:
+    volumes:
+      - ./pet_db_data:/var/lib/mysql
     #   - ./pet_db.sql:/docker-entrypoint-initdb.d/pet_db.sql
     ports:
       - 3306:3306
       - 33060:33060
     networks:
       - pet_app_net
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   pet_app_net:
