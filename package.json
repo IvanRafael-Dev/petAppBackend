@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "start": "node dist/main/app/server.js",
-    "dev": "tsnd src/main/app/server.ts",
+    "dev": "npm run db:reset && tsnd src/main/app/server.ts",
     "lint": "eslint --ext .ts --fix",
     "test": "jest --verbose --watch",
     "test:unit": "npm test -- --config=jest.config.js src/test/unit",
