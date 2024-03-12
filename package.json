@@ -8,14 +8,17 @@
     "start": "node dist/main/app/server.js",
     "dev": "npm run db:reset && tsnd src/main/app/server.ts",
     "lint": "eslint --ext .ts --fix",
-    "test": "jest --verbose --watch --no-cache",
-    "test:unit": "npm test -- --config=jest.config.js ./test/unit",
-    "test:integration": "npm test --  --config=jest.config.js ./test/integration",
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watch ./test/unit",
+    "test:integration": "npm test -- --watch ./test/integration",
     "test:coverage": "jest --coverage",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:verbose": "npm test -- --verbose",
     "db:seed": "ts-node ./src/prisma/seed.ts",
     "db:push": "npx prisma db push",
     "db:drop": "ts-node ./src/prisma/drop.ts",
-    "db:reset": "npm run db:drop && npm run db:push && npm run db:seed"
+    "db:reset": "npm run db:drop && npm run db:push && npm run db:seed",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +42,7 @@
     "@prisma/client": "^5.10.2",
     "cors": "^2.8.5",
     "express": "^4.18.3",
+    "husky": "^9.0.11",
     "prisma": "^5.10.2"
   },
   "prisma": {
