@@ -1,6 +1,6 @@
 import { type RequestHandler } from 'express';
-import { type Controller } from '../../presentation/controllers/interfaces/Controller';
-import { type HttpRequest } from '../../presentation/controllers/interfaces/Http';
+import { type Controller } from '@/presentation/controllers/interfaces/Controller';
+import { type HttpRequest } from '@/presentation/controllers/interfaces/Http';
 
 export const expressRouteAdapter = (controller: Controller): RequestHandler => {
   return async (req, res) => {

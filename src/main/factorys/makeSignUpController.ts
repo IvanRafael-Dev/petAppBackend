@@ -1,6 +1,6 @@
-import { SignUpController } from '../../presentation/controllers/SignUpController';
-import { RequiredFieldsValidation } from '../../presentation/validators/RequiredFieldsValidation';
-import { ValidationComposite } from '../../presentation/validators/ValidationComposite';
+import { SignUpController } from '@/presentation/controllers/SignUpController';
+import { RequiredFieldsValidation } from '@/presentation/validators/RequiredFieldsValidation';
+import { ValidationComposite } from '@/presentation/validators/ValidationComposite';
 
 export const makeSignUpValidationComposite = (): ValidationComposite => {
   const validationComposite = new ValidationComposite([]);
