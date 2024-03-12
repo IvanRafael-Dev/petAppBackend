@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/test'],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/prisma/**'
@@ -9,5 +9,9 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest'
+  },
+  moduleNameMapper: {
+    '@/tests/(.*)': '<rootDir>/tests/$1',
+    '@/(.*)': '<rootDir>/src/$1'
   }
 };
