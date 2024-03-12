@@ -17,7 +17,7 @@ export class SignUpController implements Controller {
       return badRequest(error);
     }
 
-    const { username, email, password, passwordConfirmation } = httpRequest.body;
+    const { password, passwordConfirmation } = httpRequest.body;
     if (password !== passwordConfirmation) {
       return badRequest(new PasswordConfirmationMismatchError('password and confirmation must be equal'));
     }
