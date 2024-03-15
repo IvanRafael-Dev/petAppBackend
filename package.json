@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "start": "node dist/main/app/server.js",
-    "dev": "npm run db:reset && tsnd src/main/app/server.ts",
+    "app": "tsnd -r tsconfig-paths/register src/main/app/server.ts",
+    "dev": "npm run db:reset && npm run app",
     "lint": "eslint --ext .ts --fix",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "npm test -- --watch ./test/unit",
@@ -36,6 +37,7 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {

@@ -8,10 +8,10 @@
     "strict": true,
     "sourceMap": true,
     "rootDirs": ["src", "test"],
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
       "@/tests/*": ["../test/*"],
-      "@/*": ["*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src", "test"],
