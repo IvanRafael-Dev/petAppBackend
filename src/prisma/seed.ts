@@ -222,28 +222,30 @@ const cityState: Prisma.CityStateCreateInput[] = [
   }
 ];
 
-const users: Prisma.UserCreateInput[] = [
+const users: Prisma.UserCreateInput[] = Array.from({ length: 10 }, (_, index) => (
   {
-    name: 'any_name',
-    email: 'mail@mail.com',
-    password: 'any_password',
+    email: `mail${index}@mail.com`,
+    password: `any_password_${index}`,
     profile: {
       create: {
-        bio: 'any_bio',
-        phone: '5511999999999',
+        username: `any_username_${index}`,
+        name: `any_name_${index}`,
+        lastname: `any_lastname_${index}`,
+        bio: `any_bio_${index}`,
+        phone: `55119999999_${index}`,
         address: {
           create: {
-            street: 'any_street',
-            number: '123',
-            zipCode: '123456',
-            state: { connect: { name: 'São Paulo' } },
-            city: { connect: { name: 'Santos' } }
+            street: `any_street_${index}`,
+            number: `${123 + index}`,
+            zipCode: `${123456 + index}`,
+            state: { connect: { name: brazilStates[0].name } },
+            city: { connect: { name: cities[index].name } }
           }
         }
       }
     }
   }
-];
+));
 
 async function main (): Promise<void> {
   for (const country of countries) {
