@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { type Controller } from '@/presentation/controllers/interfaces/Controller';
+import { type Controller } from '@/presentation/interfaces/Controller';
 import { expressRouteAdapter } from '../../../src/main/frameworks/express-route-adapter';
-import { type HttpRequest } from '@/presentation/controllers/interfaces/Http';
+import { type HttpRequest } from '@/presentation/interfaces/Http';
 import { type Request, type Response, type NextFunction } from 'express';
 
 export interface ExpressRequestMockType extends Request {

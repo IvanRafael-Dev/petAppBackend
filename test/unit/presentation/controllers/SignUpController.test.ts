@@ -1,5 +1,5 @@
 import { SignUpController } from '@/presentation/controllers/SignUpController';
-import { type HttpRequest } from '@/presentation/controllers/interfaces/Http';
+import { type HttpRequest } from '@/presentation/interfaces/Http';
 import { MissingParamError } from '@/presentation/errors/MissingParamError';
 import { type Validation } from '@/presentation/validators/interfaces/Validation';
 
