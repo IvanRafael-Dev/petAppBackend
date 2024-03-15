@@ -27,7 +27,7 @@ model User {
 model Profile {
   id        Int       @id @default(autoincrement())
   username  String    @unique
-  name      String
+  firstname String
   lastname  String
   bio       String
   phone     String
@@ -43,7 +43,7 @@ model Profile {
 model Address {
   id        Int     @id @default(autoincrement())
   street    String
-  number    String
+  number    Int
   stateId   Int
   cityId    Int
   zipCode   String
