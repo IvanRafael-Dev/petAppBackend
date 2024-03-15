@@ -11,7 +11,8 @@
         "method-signature-style": "off",
         "@typescript-eslint/method-signature-style": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
-        "@typescript-eslint/no-invalid-void-type": "off"
+        "@typescript-eslint/no-invalid-void-type": "off",
+        "@typescript-eslint/no-unsafe-argument": "off"
       },
       "parserOptions": {
         "project": "./tsconfig.json"
