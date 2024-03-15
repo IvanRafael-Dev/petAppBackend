@@ -12,7 +12,8 @@
     "paths": {
       "@/tests/*": ["../test/*"],
       "@/*": ["src/*"]
-    }
+    },
+    "moduleResolution": "node",
   },
   "include": ["src", "test"],
   "exclude": []
