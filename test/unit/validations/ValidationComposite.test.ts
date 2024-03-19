@@ -16,7 +16,9 @@ interface SutTypes {
 
 const makeSut = (): SutTypes => {
   const validationStubs = [makeValidationStub(), makeValidationStub()];
-  const sut = new ValidationComposite(validationStubs);
+  const sut = new ValidationComposite([]);
+  sut.add(validationStubs[0]);
+  sut.add(validationStubs[1]);
   return { sut, validationStubs };
 };
 
