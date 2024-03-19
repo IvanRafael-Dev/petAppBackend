@@ -9,18 +9,18 @@ type FakeHttpRequestBody = Record<FakeHttpRequestFields, string>;
 
 export const makeHttpRequestBody = (missingField?: FakeHttpRequestFields, update?: Partial<FakeHttpRequestBody>): HttpRequest => {
   const body = {
-    username: 'any_name' || update?.username,
-    email: 'any_email@mail.com' || update?.email,
-    password: 'any_password' || update?.password,
-    passwordConfirmation: 'any_password' || update?.passwordConfirmation
+    username: 'any_name',
+    email: 'any_email@mail.com',
+    password: 'any_password',
+    passwordConfirmation: 'any_password'
   };
 
-  if (!missingField) {
-    return { body };
-  }
+  Object.assign(body, update);
 
-  const { [missingField]: _, ...outputBody } = body;
-  return { body: outputBody };
+  if (!missingField) return { body };
+
+  const { [missingField]: _, ...invalidBody } = body;
+  return { body: invalidBody };
 };
 
 interface SutTypes {
@@ -111,7 +111,7 @@ describe('#SignUpController', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce();
 
     const httpRequest = makeHttpRequestBody(undefined, { passwordConfirmation: 'invalid_password' });
-    httpRequest.body.passwordConfirmation = 'invalid_password';
+
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual({ error: 'password and confirmation must be equal' });
