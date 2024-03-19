@@ -1,8 +1,9 @@
 module.exports = {
-  roots: ['<rootDir>/test'],
+  roots: ['<rootDir>'],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
-    '!<rootDir>/src/prisma/**'
+    '!<rootDir>/src/prisma/**',
+    '!<rootDir>/pet_db_data/**'
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
@@ -11,7 +12,7 @@ module.exports = {
     '.+\\.ts$': 'ts-jest'
   },
   moduleNameMapper: {
-    '@/tests/(.*)': '<rootDir>/tests/$1',
+    '@/test/(.*)': '<rootDir>/test/$1',
     '@/(.*)': '<rootDir>/src/$1'
   }
 };
