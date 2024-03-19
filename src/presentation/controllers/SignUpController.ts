@@ -1,4 +1,3 @@
-import { PasswordConfirmationMismatchError } from '../errors/PasswordConfirmationMismatchError';
 import { badRequest, created } from '../helpers/http';
 import { type Validation } from '../validators/interfaces/Validation';
 import { type Controller } from '../interfaces/Controller';
@@ -15,11 +14,6 @@ export class SignUpController implements Controller {
     const error = this.validation.validate(httpRequest.body);
     if (error) {
       return badRequest(error);
-    }
-
-    const { password, passwordConfirmation } = httpRequest.body;
-    if (password !== passwordConfirmation) {
-      return badRequest(new PasswordConfirmationMismatchError('password and confirmation must be equal'));
     }
 
     return created({});
