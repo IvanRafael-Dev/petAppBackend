@@ -2,6 +2,7 @@ import { SignUpController } from '@/presentation/controllers/SignUpController';
 import { type HttpRequest } from '@/presentation/interfaces/Http';
 import { MissingParamError } from '@/presentation/errors/MissingParamError';
 import { type Validation } from '@/presentation/validators/interfaces/Validation';
+import { InvalidParamError } from '@/presentation/errors/InvalidParamError';
 
 type FakeHttpRequestFields = 'username' | 'email' | 'password' | 'passwordConfirmation';
 
@@ -108,12 +109,13 @@ describe('#SignUpController', () => {
   it('should return 400 if password confirmation fails', async () => {
     const { sut, validationStub } = makeSut();
 
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce();
+    jest.spyOn(validationStub, 'validate')
+      .mockReturnValueOnce(new InvalidParamError('password and passwordConfirmation must be equal'));
 
     const httpRequest = makeHttpRequestBody(undefined, { passwordConfirmation: 'invalid_password' });
 
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual({ error: 'password and confirmation must be equal' });
+    expect(httpResponse.body).toEqual({ error: 'Invalid param: password and passwordConfirmation must be equal' });
   });
 });
