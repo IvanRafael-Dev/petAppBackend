@@ -118,4 +118,17 @@ describe('#SignUpController', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual({ error: 'Invalid param: password and passwordConfirmation must be equal' });
   });
+
+  it('should return 400 if an invalid email is provided', async () => {
+    const { sut, validationStub } = makeSut();
+
+    jest.spyOn(validationStub, 'validate')
+      .mockReturnValueOnce(new InvalidParamError('email'));
+
+    const httpRequest = makeHttpRequestBody(undefined, { email: 'invalid_email' });
+
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual({ error: 'Invalid param: email' });
+  });
 });
