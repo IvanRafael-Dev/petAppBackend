@@ -49,10 +49,19 @@ describe('#SignUpController', () => {
     expect(httpResponse.body).toEqual({ error: 'Invalid param: password and passwordConfirmation must be equal' });
   });
 
+  it('should return 400 if an invalid email is provided', async () => {
+    const httpResponse = await request
+      .post('/signup')
+      .send({ username: 'any_username', email: 'invalid_email', password: 'any_password', passwordConfirmation: 'any_password' });
+
+    expect(httpResponse.status).toBe(400);
+    expect(httpResponse.body).toEqual({ error: 'Invalid param: email' });
+  });
+
   it('should return 200 if valid data is provided', async () => {
     const httpResponse = await request
       .post('/signup')
-      .send({ username: 'any_username', email: 'any_email', password: 'any_password', passwordConfirmation: 'any_password' });
+      .send({ username: 'any_username', email: 'valid_email@mail.com', password: 'any_password', passwordConfirmation: 'any_password' });
 
     expect(httpResponse.status).toBe(201);
   });
