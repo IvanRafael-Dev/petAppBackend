@@ -1,6 +1,6 @@
-import { InvalidParamError } from '../../errors/InvalidParamError';
-import { type Validation } from '../../validators/interfaces/Validation';
-import { type EmailValidator } from './interface/EmailValidator';
+import { InvalidParamError } from '../errors/InvalidParamError';
+import { type EmailValidator } from '../utils/email/interface/EmailValidator';
+import { type Validation } from './interfaces/Validation';
 
 export class EmailValidation implements Validation {
   private readonly emailValidator: EmailValidator;

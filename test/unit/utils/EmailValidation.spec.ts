@@ -1,7 +1,7 @@
-import { type EmailValidator } from './../../../src/presentation/utils/email/interface/EmailValidator';
-import { type EmailValidatorAdapter } from '@/presentation/utils/email/EmailValidator';
-import { EmailValidation } from './../../../src/presentation/utils/email/EmailValidationAdapter';
 import { InvalidParamError } from '@/presentation/errors/InvalidParamError';
+import { type EmailValidatorAdapter } from '@/presentation/utils/email/EmailValidator';
+import { type EmailValidator } from '@/presentation/utils/email/interface/EmailValidator';
+import { EmailValidation } from '@/presentation/validators/EmailValidationAdapter';
 
 interface SutTypes {
   sut: EmailValidation
