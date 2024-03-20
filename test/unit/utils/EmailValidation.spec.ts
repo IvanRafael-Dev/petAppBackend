@@ -38,4 +38,11 @@ describe('#EmailValidation', () => {
     const error = sut.validate({ email: 'invalid_email' });
     expect(error).toEqual(new InvalidParamError('email'));
   });
+
+  it('should not return if EmailValidator returns true', () => {
+    const { sut } = makeSut();
+    jest.spyOn(sut, 'validate').mockReturnValueOnce(undefined);
+    const error = sut.validate({ email: 'valid_email' });
+    expect(error).toBeUndefined();
+  });
 });
